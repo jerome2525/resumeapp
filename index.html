@@ -306,6 +306,23 @@
 
             <div class="item">
                 <div class="item-header">
+                    <div class="item-title">Retainly GHL Bridge - OAuth Wrapper for GoHighLevel MCP Connector</div>
+                </div>
+                <div class="item-subtitle">retainly-ghl-bridge (Railway-deployed)</div>
+                <div class="tech-stack">Tech Stack: TypeScript, Node.js 20, Hono, jose (JWT/JOSE), Docker, Railway, MCP, OAuth 2.1</div>
+                <ul>
+                    <li>Built a single-tenant remote MCP bridge that wraps GoHighLevel's bearer-token MCP server behind a full OAuth flow, so it can be added to Claude.ai (web, iPhone, Desktop) as a custom connector by pasting one URL</li>
+                    <li>Implemented the complete OAuth 2.1 discovery + authorization stack from scratch - RFC 9728 protected-resource metadata, RFC 8414 authorization-server metadata, RFC 7591 dynamic client registration, RFC 7636 PKCE (S256), and resource indicators - with no database and no user accounts</li>
+                    <li>Designed a fully stateless token system using signed JWTs (jose): short-lived auth codes (10 min) bound to the client's PKCE challenge, access tokens (1h), and refresh tokens (30d), all verified for signature, issuer, audience, and expiry</li>
+                    <li>Engineered an authenticating reverse proxy that swaps the client's bearer header and re-signs each /mcp request with the shared GHL Personal Integration Token and locationId, streaming SSE responses through unbuffered</li>
+                    <li>Hardened the OAuth endpoints with redirect-URI validation and client_secret enforcement on the registration and token endpoints</li>
+                    <li>Containerized with Docker and deployed on Railway for one-paste connector setup by a small team sharing one GHL sub-account</li>
+                </ul>
+                <div class="outcome">Outcome: Turns any bearer-token MCP server into a Claude-compatible OAuth connector, eliminating per-user credential setup and enabling secure, shared access from any Claude device.</div>
+            </div>
+
+            <div class="item">
+                <div class="item-header">
                     <div class="item-title">OnlineMihna - AI-Powered Job Marketplace</div>
                 </div>
                 <div class="item-subtitle"><a href="https://onlinemihna.com/en" target="_blank">onlinemihna.com</a></div>
