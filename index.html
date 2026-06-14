@@ -272,9 +272,29 @@
 
             <div class="item">
                 <div class="item-header">
+                    <div class="item-title">Retainly Outbound - Multi-Tenant AI Cold-Email Lead Engine</div>
+                </div>
+                <div class="item-subtitle"><a href="https://outbound.retainlypro.com/" target="_blank">outbound.retainlypro.com</a> (white-label client portal: <a href="https://lead.retainlypro.com/" target="_blank">lead.retainlypro.com</a>)</div>
+                <div class="tech-stack">Tech Stack: Next.js, Claude API, Apify, Supabase (Postgres + Edge Functions + pg_cron + RLS), Smartlead.ai, Railway, Cloudflare</div>
+                <ul>
+                    <li>Built an end-to-end cold-email sales machine that turns a raw business niche + city into booked sales calls: scrape &rarr; enrich &rarr; verify &rarr; score &rarr; AI-generate a personalized audit page &rarr; push to an email campaign - fully automated and unattended</li>
+                    <li>Lead pipeline as a Supabase-native state machine: a Postgres AFTER UPDATE dispatch trigger (pg_net) advances each lead through edge-function workers (enrich, verify, score, generate-audit, push), with pg_cron driving scheduled scrapes and provider syncs - no external orchestrator (n8n) needed</li>
+                    <li>AI Audit Generator (core IP): uses the Claude API to write a personalized, first-person diagnostic "audit" for each prospect - three specific Instagram content gaps, a revenue-leakage range, and a Calendly CTA - rendered as a public audit page, with a QA gate that rejects audits violating brand/voice rules</li>
+                    <li>Lead scoring engine: scrapes each business's Instagram via Apify and scores it on a dormancy-weighted rubric ("how neglected is their content"), so only genuinely-fit prospects (&ge;60) reach the AI audit step - protecting sender reputation and AI spend</li>
+                    <li>Lead enrichment: discovers each business's Instagram handle + contact email from its website (with booking-platform/garbage-handle guards) and Apify search fallbacks, gated so no audit is generated for a lead that can't be delivered</li>
+                    <li>Smartlead.ai integration + warmup intelligence: per-tenant white-label client/campaign provisioning, CAN-SPAM-compliant campaigns, and a live inbox-warmup readiness model (reputation + sent volume + days-warmed) surfaced to admins so cold sending never starts on an unseasoned domain</li>
+                    <li>Reliability engineering at scale: diagnosed and fixed an Apify concurrency-burst failure (HTTP 402) that was silently discarding ~85% of qualifying leads - added request de-bursting + exponential-backoff retries, a retry cron, a stuck-lead self-healing sweeper, and graceful give-up, taking a 500-lead batch from ~3 to ~22 reliably-produced audits</li>
+                    <li>Multi-tenant SaaS: per-user data isolation via Supabase RLS, magic-link auth, a white-label Smartlead client portal per tenant, and an internal Next.js dashboard (pipeline health, KPIs, lead export/delete, QA review queue, per-tenant sending-readiness, auto-approve)</li>
+                    <li>Designed and architected the entire system end-to-end using Claude Code, Supabase MCP, and markdown-driven specs - owning data modeling, pipeline reliability, and product architecture while AI agents executed the implementation</li>
+                </ul>
+                <div class="outcome">Outcome: A reliable, unattended lead-to-audit machine that scales linearly by city/niche - ~22 personalized AI audits per 500-lead metro batch, multiplying across cities/day toward the ~130/day target, with multi-tenant white-label delivery.</div>
+            </div>
+
+            <div class="item">
+                <div class="item-header">
                     <div class="item-title">Shooters Network - AI-Powered Outreach & Sales Toolkit</div>
                 </div>
-                <div class="item-subtitle"><a href="https://shootersnetworkwebapp-production.up.railway.app/" target="_blank">shootersnetworkwebapp-production.up.railway.app</a></div>
+                <div class="item-subtitle"><a href="https://retainlypro.com/" target="_blank">retainlypro.com</a></div>
                 <div class="tech-stack">Tech Stack: Next.js, Claude API, Apify, RAG, Railway</div>
                 <ul>
                     <li>Built a four-in-one web app for agency operators, combining lead generation, personalized outreach, mentorship, and pricing guidance in a single tiered SaaS product</li>
