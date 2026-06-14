@@ -41,6 +41,13 @@
             color: #000;
         }
 
+        .tagline {
+            font-size: 15px;
+            color: #444;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
         .contact {
             font-size: 14px;
             color: #666;
@@ -79,6 +86,18 @@
             font-size: 14px;
             line-height: 1.7;
             color: #555;
+        }
+
+        .profile p {
+            margin: 0 0 12px 0;
+        }
+
+        .profile p:last-child {
+            margin-bottom: 0;
+        }
+
+        .profile strong {
+            color: #000;
         }
 
         .item {
@@ -206,6 +225,7 @@
     <div class="container">
         <header>
             <h1>Jerome Anyayahan</h1>
+            <div class="tagline">AI-Native Builder &middot; Solutions Architect &middot; Founder</div>
             <div class="contact">
                 <span>639150176020</span>
                 <span><a href="mailto:emorej.enela@gmail.com">emorej.enela@gmail.com</a></span>
@@ -219,7 +239,10 @@
         <section>
             <h2>Profile</h2>
             <div class="profile">
-                I'm not a coder - I'm a builder. My job is to solve problems, understand business logic, and ship products that actually move the needle. With over <span id="years-exp">10</span> years of hands-on engineering experience across Next.js, React, React Native, TypeScript, Supabase, FastAPI, Django, and Python, I've spent enough time in the trenches - debugging production, designing systems, integrating APIs - to know what good software looks like and where it breaks. I came up writing every line by hand in the pre-AI era; I no longer code manually, but that hard-won instinct is exactly what lets me tell when AI-generated code is right and when it quietly isn't. Today, I rarely write code manually. Instead, I channel that experience into architecting and orchestrating Claude Code workflows that translate business requirements into working products at a fraction of the traditional time. My day-to-day revolves around problem discovery and business logic: I sit with the problem until I understand it, map it to an architecture, then direct AI agents to execute. My current toolkit is built around Claude Code - designing MCP server integrations (Figma MCP, Supabase MCP, custom MCPs), authoring custom Skills and slash commands, configuring subagents and hooks, and maintaining markdown-driven context files (CLAUDE.md, memory, plans) that encode project conventions and intent. Specifications, code reviews, tests, and automation are authored in Markdown and executed by AI agents; I own the architectural decisions, the business logic, and the validation. I'm also a founder and fitness content creator on TikTok, which keeps me grounded in real-world operations, user behavior, and the messy reality of growing a product. What I bring to the table is judgment - the ability to see a business problem, design the right solution, and build it end-to-end using AI-native workflows. Seeking opportunities where builders, not just coders, are what the product needs.
+                <p><strong>I'm not a coder - I'm a builder.</strong> My job is to solve problems, understand business logic, and ship products that actually move the needle. With over <span id="years-exp">10</span> years of hands-on engineering across Next.js, React, React Native, TypeScript, Supabase, FastAPI, Django, and Python, I've spent enough time in the trenches - debugging production, designing systems, integrating APIs - to know what good software looks like and where it breaks.</p>
+                <p>I came up writing every line by hand in the pre-AI era; I no longer code manually, but that hard-won instinct is exactly what lets me tell when AI-generated code is right and when it quietly isn't. Today I channel that experience into architecting and orchestrating Claude Code workflows that turn business requirements into working products at a fraction of the traditional time. I sit with the problem until I understand it, map it to an architecture, then direct AI agents to execute - owning the architectural decisions, the business logic, and the validation.</p>
+                <p>My toolkit is built around Claude Code: MCP server integrations (Figma MCP, Supabase MCP, custom MCPs), custom Skills and slash commands, subagents and hooks, and markdown-driven context files (CLAUDE.md, memory, plans) that encode project conventions and intent. Specs, code reviews, tests, and automation are authored in Markdown and executed by AI agents. I'm also a founder and fitness content creator on TikTok, which keeps me grounded in real-world operations, user behavior, and the messy reality of growing a product.</p>
+                <p>What I bring to the table is judgment - the ability to see a business problem, design the right solution, and build it end-to-end using AI-native workflows. <strong>Seeking opportunities where builders, not just coders, are what the product needs.</strong></p>
             </div>
         </section>
 
@@ -299,7 +322,6 @@
                     <li>DM Helper: generates personalized outreach DMs using the Claude API with three tone options (casual, direct, curiosity hook), supports follow-up sequences (DM 2 and DM 3), one-click copy, and saves the last 10 generated messages</li>
                     <li>Ask A Mentor: AI chatbot powered by Claude API with RAG over Brandon's Shooters Network framework, answering pricing, outreach, and objection questions in his voice and methodology (Pro/Agency tier)</li>
                     <li>Pricing Tool: generates recommended retainer price, package breakdown, and presentation guidance based on business type and services offered</li>
-                    <li>Designed and architected the entire system end-to-end using Claude Code, MCP servers, and markdown-driven specs - handling business logic and product architecture while AI agents executed implementation</li>
                 </ul>
                 <div class="outcome">Outcome: Delivered a full tiered SaaS (Starter / Pro / Agency) that turns a proven sales methodology into a productized, AI-augmented toolkit for agency operators.</div>
             </div>
@@ -331,7 +353,6 @@
                     <li>Exposed 18 typed MCP tools covering the full subscriber lifecycle - find/create/update subscribers, manage tags and custom fields, trigger flows, and send text or flow messages - each with Zod-validated inputs and LLM-friendly error messages</li>
                     <li>Hardened security end-to-end: AES-256-GCM token encryption (iv|authTag|ciphertext), single-use auth codes, redirect-URI allowlisting, constant-time client-secret checks, per-IP rate limiting, and audit logging of every tool call</li>
                     <li>Architected the messaging tools around ManyChat's real-world constraints - 24-hour messaging windows, HUMAN_AGENT tagging, and per-channel rules for Instagram, Messenger, WhatsApp, and SMS - so Claude never attempts a send the platform would reject</li>
-                    <li>Designed and architected the entire system end-to-end using Claude Code, MCP servers, and markdown-driven specs - owning the OAuth/security design and product architecture while AI agents executed the implementation</li>
                 </ul>
                 <div class="outcome">Outcome: Shipped a production, Dockerized MCP bridge on Railway that turns ManyChat into a conversational tool any team member can use through Claude - replacing manual dashboard work with plain-language requests.</div>
             </div>
