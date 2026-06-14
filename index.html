@@ -322,6 +322,22 @@
 
             <div class="item">
                 <div class="item-header">
+                    <div class="item-title">Retainly &times; ManyChat Bridge - One-Click ManyChat Connector for Claude</div>
+                </div>
+                <div class="tech-stack">Tech Stack: TypeScript, Node.js, Express, Model Context Protocol (MCP) SDK, OAuth 2.0 + PKCE, JWT, AES-256-GCM, Docker, Railway</div>
+                <ul>
+                    <li>Built a self-hosted MCP server that wraps the entire ManyChat API so a non-technical team can run ManyChat directly inside Claude as a one-click custom connector - no API keys, scripts, or dashboards</li>
+                    <li>Implemented a full OAuth 2.0 + PKCE authorization flow from scratch (authorize, token, refresh, revoke, dynamic client registration, and discovery metadata endpoints) so each team member securely connects their own ManyChat account in seconds</li>
+                    <li>Exposed 18 typed MCP tools covering the full subscriber lifecycle - find/create/update subscribers, manage tags and custom fields, trigger flows, and send text or flow messages - each with Zod-validated inputs and LLM-friendly error messages</li>
+                    <li>Hardened security end-to-end: AES-256-GCM token encryption (iv|authTag|ciphertext), single-use auth codes, redirect-URI allowlisting, constant-time client-secret checks, per-IP rate limiting, and audit logging of every tool call</li>
+                    <li>Architected the messaging tools around ManyChat's real-world constraints - 24-hour messaging windows, HUMAN_AGENT tagging, and per-channel rules for Instagram, Messenger, WhatsApp, and SMS - so Claude never attempts a send the platform would reject</li>
+                    <li>Designed and architected the entire system end-to-end using Claude Code, MCP servers, and markdown-driven specs - owning the OAuth/security design and product architecture while AI agents executed the implementation</li>
+                </ul>
+                <div class="outcome">Outcome: Shipped a production, Dockerized MCP bridge on Railway that turns ManyChat into a conversational tool any team member can use through Claude - replacing manual dashboard work with plain-language requests.</div>
+            </div>
+
+            <div class="item">
+                <div class="item-header">
                     <div class="item-title">OnlineMihna - AI-Powered Job Marketplace</div>
                 </div>
                 <div class="item-subtitle"><a href="https://onlinemihna.com/en" target="_blank">onlinemihna.com</a></div>
