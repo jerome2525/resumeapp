@@ -387,12 +387,14 @@
                 <div class="item-subtitle"><a href="https://apps.apple.com/us/app/roxcircle/id6831028973" target="_blank">Roxcircle on the App Store</a> - owned product: training companion and community for HYROX athletes, coaches, gyms and brands</div>
                 <div class="tech-stack">Tech Stack: React Native, Expo, TypeScript, Supabase (Postgres + Auth + Storage + Edge Functions + RLS), OpenAI GPT-4.1, RevenueCat, TanStack Query, Zustand, EAS</div>
                 <ul>
-                    <li>Designed and built the full product solo: a four-role platform (athlete, coach, gym, brand) in one codebase, where role-gated tab structures and permissions are driven by a single profile model plus an admin approval flow for coaches, gyms and brands</li>
-                    <li>Workout engine with three paths producing one workout object - manual builder, AI generation from natural-language goals, and coach-assigned programs - with a runtime that plays each session type as prescribed (for-time, circuit, AMRAP, intervals, timed rotations, to-failure, power-quality)</li>
-                    <li>AI workout generation runs server-side in a Supabase Edge Function: the model only sees valid exercise slugs from an app-managed library (so it cannot invent exercises), with output constrained by training methodology, division-specific loads and race-pace goals</li>
-                    <li>Fidelity process: transcribed official HYROX training PDFs into the database against a written capability catalog and rubric, with per-plan fidelity reports measuring how many sessions map to existing formats and flagging modeling gaps before ingesting</li>
-                    <li>Session logger designed around a 3-tap rule, with station splits, auto-detected PBs, and auto-posting to circles; plus coach tooling (classes, rosters, dated assignments, athlete records) and community circles, feeds, leaderboards and chat</li>
-                    <li>Monetization and ops: RevenueCat subscriptions with a webhook Edge Function, push notification functions, account-deletion flow, moderation (block / report), and a Jest test suite with E2E flows</li>
+                    <li>Built solo and shipped to the App Store: athletes log a session in three taps, generate AI workouts scaled to their HYROX division, and train with their gym or coach - about 280 commits over roughly six months</li>
+                    <li>One codebase, four roles (athlete, coach, gym, brand): tab structure and permissions are driven by a single profile model, with admin approval for coaches, gyms and brands that lets them into the app in a limited pending state instead of blocking sign-up</li>
+                    <li>Workout engine: manual builder, AI generation and coach assignment all produce one workout object, and a runtime plays each format as prescribed (for-time, circuit, AMRAP, intervals, timed rotations, to-failure, power-quality)</li>
+                    <li>AI generation runs in a Supabase Edge Function so keys stay server-side; the model is only given valid exercise slugs from the app-managed library, with output constrained by training methodology, division loads and race-pace goals, so it cannot invent exercises</li>
+                    <li>Fidelity process: transcribed official HYROX training PDFs against a written format catalog and rubric, with fidelity reports showing ~57 of 60 Pro sessions already mapped to built formats and gaps flagged before ingesting</li>
+                    <li>Decision and trade-off: direct-to-Supabase with RLS and no custom backend - one person can run it, at the cost of putting business logic in Edge Functions and database RPCs, so those had to be tested and reviewed more carefully</li>
+                    <li>Hard problems solved: feed stuck on a spinner after the app sat in the background (fixed with request timeouts and a foreground auth refresh), a sign-out push-token leak, and permanent account deletion that revokes the Sign in with Apple token, as the App Store requires</li>
+                    <li>Production setup: RevenueCat subscriptions with a webhook Edge Function, push notification functions, block / report moderation, Jest tests and E2E flows</li>
                 </ul>
                 <div class="outcome">Outcome: Shipped to the Apple App Store - a multi-role iOS product with an AI coaching layer, built solo on a Supabase-only architecture using Claude Code workflows.</div>
             </div>
@@ -403,13 +405,13 @@
                 <div class="item-subtitle"><a href="https://groupfound.com/" target="_blank">groupfound.com</a> (iOS app in pre-launch; App Store release in progress)</div>
                 <div class="tech-stack">Tech Stack: React Native, Expo, TypeScript, Supabase (Postgres + Auth + Storage + Realtime + Edge Functions + pg_cron + RLS), Claude API, TanStack Query, Sentry, EAS</div>
                 <ul>
-                    <li>Designed and built the entire product from the ground up - a social platform for founders, creators and operators that matches members to collaborators by goals and complementary skills, with a native iOS app and a marketing website</li>
-                    <li>Mirror AI: a Claude-powered assistant that interviews each member during onboarding, builds a structured profile (ambitions, skills, experience, connection preferences) via tool calling, and feeds a semantic concept taxonomy that powers weighted, explainable matchmaking ("why this match")</li>
-                    <li>Went direct-to-Supabase with no custom backend: security enforced by Row Level Security on every table, column-level grants protecting sensitive profile fields, SECURITY DEFINER RPCs for owner-only data, and block / report / admin moderation tooling</li>
-                    <li>Built the full social stack - ranked and chronological feeds, circles (communities), introductions, 1:1 chat with reactions, link previews, rich-text articles, and Kaizen habit tracking with system-generated reminders</li>
-                    <li>Server-side automation with 24 Supabase Edge Functions and Postgres triggers plus pg_cron: push notifications, AI-generated intro copy, circle topic suggestions, geocoding, and Mirror nudges</li>
-                    <li>Production-grade engineering: Sign in with Apple, Google OAuth and email auth (PKCE), Sentry crash reporting, EAS builds with a TestFlight release process, a Jest test suite, E2E flows, and 200+ version-controlled SQL migrations</li>
-                    <li>Admin dashboards for feed health and AI cost monitoring, including per-user daily caps on Mirror usage to keep AI spend predictable</li>
+                    <li>Designed and built the product solo from the ground up - a social platform for founders, creators and operators that matches members by goals and complementary skills - about 1,300 commits over roughly eight months, reaching iOS build 27</li>
+                    <li>Mirror AI: a Claude-powered assistant that interviews each member during onboarding, builds a structured profile via tool calling, and feeds a semantic concept taxonomy that powers weighted, explainable matchmaking ("why this match")</li>
+                    <li>Decision and trade-off: direct-to-Supabase with no custom backend, so security rests on RLS in every table and on careful review of every migration and RPC; 223 version-controlled SQL migrations keep the schema reviewable</li>
+                    <li>Security audit: closed 13 findings, including revoking client SELECT on profile latitude/longitude and replacing it with owner-only SECURITY DEFINER RPCs, since a single protected column in a select made PostgREST reject the entire row</li>
+                    <li>Hard problems solved: an ON CONFLICT bug rolling back comment inserts (fixed with the partial-unique-index form), duplicate post-view errors, and a require cycle between post components</li>
+                    <li>Server-side automation: 24 Supabase Edge Functions plus Postgres triggers and pg_cron for push notifications, AI-generated intro copy, circle suggestions, geocoding and Mirror nudges; admin dashboards and per-user daily caps keep AI spend predictable</li>
+                    <li>Release engineering: Sign in with Apple, Google OAuth and email auth (PKCE), Sentry crash reporting, EAS builds with a TestFlight process, 54 test files and E2E flows</li>
                 </ul>
                 <div class="outcome">Outcome: A production-quality iOS app, built solo with Claude Code workflows on a Supabase-only architecture, now in TestFlight and approaching its App Store launch.</div>
             </div>
@@ -426,25 +428,18 @@
                     <li>Evaluation loop: treat prompt quality as testable - audits are checked against a rubric (tone, factual grounding in the scraped data, no invented claims, CTA present), rejected drafts are reviewed to tune prompts, and pass/reject outcomes are tracked per batch</li>
                     <li>Reliability engineering: diagnosed and fixed an Apify concurrency-burst failure (HTTP 402) silently discarding ~85% of qualifying leads - added de-bursting, exponential-backoff retries, and a self-healing sweeper, taking a 500-lead batch from ~3 to ~22 reliably-produced audits</li>
                     <li>Multi-tenant SaaS: per-tenant data isolation via Supabase RLS, magic-link auth, white-label Smartlead.ai client portals, and an internal dashboard for pipeline health, QA review, and per-tenant sending-readiness (inbox-warmup model)</li>
-                    <li>Designed and architected the entire system end-to-end using Claude Code, Supabase MCP, and markdown-driven specs - owning data modeling, pipeline reliability, and product architecture while AI agents executed the implementation</li>
                 </ul>
                 <div class="outcome">Outcome: A reliable, unattended lead-to-audit machine that scales linearly by city/niche - ~22 personalized AI audits per 500-lead metro batch, multiplying across cities/day toward the ~130/day target, with multi-tenant white-label delivery.</div>
             </div>
 
             <div class="item">
                 <div class="item-header">
-                    <div class="item-title">Shooters Network - AI-Powered Outreach & Sales Toolkit</div>
+                    <div class="item-title">Shooters Network - AI-Powered Outreach &amp; Sales Toolkit</div>
                 </div>
-                <div class="item-subtitle"><a href="https://retainlypro.com/" target="_blank">retainlypro.com</a></div>
-                <div class="tech-stack">Tech Stack: Next.js, Claude API, Apify, RAG, Railway</div>
+                <div class="item-subtitle"><a href="https://retainlypro.com/" target="_blank">retainlypro.com</a> | Next.js, Claude API, Apify, RAG, Railway</div>
                 <ul>
-                    <li>Built a four-in-one web app for agency operators, combining lead generation, personalized outreach, mentorship, and pricing guidance in a single tiered SaaS product</li>
-                    <li>Lead Finder: scrapes local businesses by city and category via Apify, returning business name, IG handle, website, and phone, with one-click push to DM Helper and session-based result history</li>
-                    <li>DM Helper: generates personalized outreach DMs using the Claude API with three tone options (casual, direct, curiosity hook), supports follow-up sequences (DM 2 and DM 3), one-click copy, and saves the last 10 generated messages</li>
-                    <li>Ask A Mentor: AI chatbot powered by Claude API with RAG over Brandon's Shooters Network framework, answering pricing, outreach, and objection questions in his voice and methodology (Pro/Agency tier)</li>
-                    <li>Pricing Tool: generates recommended retainer price, package breakdown, and presentation guidance based on business type and services offered</li>
+                    <li>Tiered SaaS (Starter / Pro / Agency) for agency operators: Apify lead finder, Claude-generated personalized outreach DMs with follow-up sequences, a RAG-based mentor chatbot, and a pricing tool</li>
                 </ul>
-                <div class="outcome">Outcome: Delivered a full tiered SaaS (Starter / Pro / Agency) that turns a proven sales methodology into a productized, AI-augmented toolkit for agency operators.</div>
             </div>
 
             <div class="item">
@@ -458,7 +453,6 @@
                     <li>Implemented the complete OAuth 2.1 discovery + authorization stack from scratch - RFC 9728 protected-resource metadata, RFC 8414 authorization-server metadata, RFC 7591 dynamic client registration, RFC 7636 PKCE (S256), and resource indicators - with no database and no user accounts</li>
                     <li>Designed a fully stateless token system using signed JWTs (jose): short-lived auth codes (10 min) bound to the client's PKCE challenge, access tokens (1h), and refresh tokens (30d), all verified for signature, issuer, audience, and expiry</li>
                     <li>Engineered an authenticating reverse proxy that swaps the client's bearer header and re-signs each /mcp request with the shared GHL Personal Integration Token and locationId, streaming SSE responses through unbuffered, with redirect-URI validation and client_secret enforcement on the OAuth endpoints</li>
-                    <li>Containerized with Docker and deployed on Railway for one-paste connector setup by a small team sharing one GHL sub-account</li>
                 </ul>
                 <div class="outcome">Outcome: Turns any bearer-token MCP server into a Claude-compatible OAuth connector, eliminating per-user credential setup and enabling secure, shared access from any Claude device.</div>
             </div>
@@ -482,15 +476,10 @@
                 <div class="item-header">
                     <div class="item-title">OnlineMihna - AI-Powered Job Marketplace</div>
                 </div>
-                <div class="item-subtitle"><a href="https://onlinemihna.com/en" target="_blank">onlinemihna.com</a></div>
-                <div class="tech-stack">Tech Stack: Next.js, Supabase, Claude Code MCP</div>
+                <div class="item-subtitle"><a href="https://onlinemihna.com/en" target="_blank">onlinemihna.com</a> | Next.js, Supabase, Claude Code MCP</div>
                 <ul>
-                    <li>Built a replica of OnlineJobs.ph tailored for a new regional market, featuring job listings, employer/worker profiles, and messaging</li>
-                    <li>Integrated AI-powered CV generation that automatically creates tailored, professional resumes from worker profile data</li>
-                    <li>Leveraged Claude Code MCP during development to accelerate feature delivery and maintain code quality</li>
-                    <li>Implemented Supabase for authentication, real-time data, and storage, with Next.js powering a fast, SEO-friendly frontend</li>
+                    <li>Job marketplace for a new regional market with listings, employer and worker profiles, messaging, Supabase auth and realtime, and AI-generated CVs built from worker profile data</li>
                 </ul>
-                <div class="outcome">Outcome: Delivered a full-featured job marketplace with AI-driven CV generation, giving job seekers a differentiated tool to stand out to employers.</div>
             </div>
         </section>
 
@@ -498,43 +487,39 @@
             <h2>Skills</h2>
             <div class="skills-category">
                 <div class="skills-category-title">AI-Native Development (Primary Workflow):</div>
-                <div class="skills-list">Claude Code (primary IDE/agent), MCP Servers (Figma MCP, Supabase MCP, custom MCP server development), Custom Skills authoring, Slash Commands, Subagents, Hooks, CLAUDE.md context engineering, Markdown-driven specs, Memory & Plan files, Cursor, Claude API, OpenAI API, RAG (Retrieval-Augmented Generation), Prompt Engineering, Agent Orchestration</div>
+                <div class="skills-list">Claude Code, MCP servers (Figma, Supabase, custom), Skills, slash commands, subagents and hooks, CLAUDE.md context engineering, spec-driven development, Claude API, OpenAI API, RAG, prompt engineering, tool calling, agent orchestration</div>
             </div>
             <div class="skills-category">
-                <div class="skills-category-title">Product & Systems Thinking:</div>
-                <div class="skills-list">Problem Discovery, Business Logic Modeling, System Architecture, Requirements-to-Spec Translation, Technical Decision Making, AI-Assisted Code Review & Validation, Product Strategy</div>
+                <div class="skills-category-title">Mobile:</div>
+                <div class="skills-list">React Native, Expo, Expo Router, EAS Build and TestFlight, RevenueCat, Sentry, Zustand, TanStack Query, Sign in with Apple, push notifications</div>
             </div>
             <div class="skills-category">
-                <div class="skills-category-title">Programming Languages:</div>
-                <div class="skills-list">Python, PHP, JavaScript, TypeScript</div>
+                <div class="skills-category-title">Backend, Data & Security:</div>
+                <div class="skills-list">Supabase (Postgres, Auth, Storage, Realtime, Edge Functions, pg_cron), Row Level Security, SQL migrations, OAuth 2.1 / PKCE, JWT (jose), Zod, Hono, Node.js, Express.js, FastAPI, Flask, Django, Django REST, SQLAlchemy, PostgreSQL, SQLite, MongoDB</div>
             </div>
             <div class="skills-category">
-                <div class="skills-category-title">Web Development:</div>
-                <div class="skills-list">Next.js, React, Supabase, Flask, Django, Django REST, FastAPI, Node.js, Express.js, SQLAlchemy, HTML, CSS, Sass, Bootstrap, Tailwind, htmx, PWA</div>
+                <div class="skills-category-title">Web:</div>
+                <div class="skills-list">Next.js, React, TypeScript, JavaScript, HTML, CSS, Sass, Tailwind, Bootstrap, htmx, PWA</div>
             </div>
             <div class="skills-category">
-                <div class="skills-category-title">Automation Tools:</div>
-                <div class="skills-list">n8n, Make.com, Apify (Expertise in API integration, workflow design, and automation)</div>
-            </div>
-            <div class="skills-category">
-                <div class="skills-category-title">API Integration:</div>
-                <div class="skills-list">Claude API, OpenAI API, MYOB API, Pipedrive API, VoIP API, Twilio, Firebase, Twitter API</div>
+                <div class="skills-category-title">Languages:</div>
+                <div class="skills-list">TypeScript, Python, JavaScript, PHP, SQL</div>
             </div>
             <div class="skills-category">
                 <div class="skills-category-title">Testing:</div>
-                <div class="skills-list">Unit testing with Pytest, Test Complete, AI-assisted test generation</div>
+                <div class="skills-list">Jest, E2E flows, Pytest, TestComplete, AI-assisted test generation</div>
             </div>
             <div class="skills-category">
-                <div class="skills-category-title">Database:</div>
-                <div class="skills-list">SQL, SQLite, PostgreSQL, MongoDB, Supabase</div>
+                <div class="skills-category-title">Automation & API Integration:</div>
+                <div class="skills-list">n8n, Make.com, Apify, GoHighLevel, ManyChat, Smartlead, MYOB, Pipedrive, VoIP, Twilio, Firebase, Twitter API</div>
             </div>
             <div class="skills-category">
                 <div class="skills-category-title">Cloud & DevOps:</div>
-                <div class="skills-list">AWS EC2, Docker, Lightsail, PythonAnywhere, Heroku, Railway</div>
+                <div class="skills-list">Docker, Railway, Cloudflare, AWS EC2, Lightsail, Heroku, PythonAnywhere, Git</div>
             </div>
             <div class="skills-category">
-                <div class="skills-category-title">Other:</div>
-                <div class="skills-list">Project Management (Agile Scrum), Version Control (Git), Problem Solving, Team Collaboration, Analytical Thinking, Time Management, Adaptability, Leadership, Field Investigation, Creative & Complex Problem Solving, Detail Oriented</div>
+                <div class="skills-category-title">Ways of working:</div>
+                <div class="skills-list">Agile Scrum, spec-first development, code review and QA gates, technical decision-making, product and business-logic modeling</div>
             </div>
         </section>
 
