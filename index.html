@@ -358,7 +358,7 @@
         <section>
             <h2>Profile</h2>
             <div class="profile">
-                <p><strong>AI engineer with <span id="years-exp">10</span>+ years of software engineering</strong> (Python, TypeScript, Next.js, React Native, Supabase) who ships production AI products end to end. Recent work: two iOS apps built solo on React Native and Supabase - Groupfound (AI-matched networking) and Roxcircle (HYROX training with server-side AI workout generation) - plus a multi-tenant AI cold-email engine and OAuth 2.1-secured MCP connectors for Claude.</p>
+                <p><strong>AI engineer with <span id="years-exp">10</span>+ years of software engineering</strong> (Python, TypeScript, Next.js, React Native, Supabase) who ships production AI products end to end. Recent work: two iOS apps built solo on React Native and Supabase - Roxcircle (HYROX training with server-side AI workout generation, live on the App Store) and Groupfound (AI-matched networking) - plus a multi-tenant AI cold-email engine and OAuth 2.1-secured MCP connectors for Claude.</p>
                 <p>I own the architecture, data model and business logic, direct Claude Code agents to build it, and review everything that ships: spec first, tests and QA gates, security and row-level isolation by default. A decade of writing code by hand, including government-secured Python systems, is what lets me tell when AI output is right and when it quietly isn't.</p>
                 <p><strong>Looking for AI engineering roles on product teams</strong> where judgment and shipping speed matter. In my first 30 days I map the business logic, ship one small end-to-end slice behind a spec and tests, and set up the review and QA conventions the team's AI-assisted output runs on.</p>
             </div>
@@ -382,6 +382,22 @@
 
             <div class="item">
                 <div class="item-header">
+                    <div class="item-title">Roxcircle - HYROX Training &amp; Community App (iOS, live on the App Store)</div>
+                </div>
+                <div class="item-subtitle"><a href="https://apps.apple.com/us/app/roxcircle/id6831028973" target="_blank">Roxcircle on the App Store</a> - owned product: training companion and community for HYROX athletes, coaches, gyms and brands</div>
+                <div class="tech-stack">Tech Stack: React Native, Expo, TypeScript, Supabase (Postgres + Auth + Storage + Edge Functions + RLS), OpenAI GPT-4.1, RevenueCat, TanStack Query, Zustand, EAS</div>
+                <ul>
+                    <li>Designed and built the full product solo: a four-role platform (athlete, coach, gym, brand) in one codebase, where role-gated tab structures and permissions are driven by a single profile model plus an admin approval flow for coaches, gyms and brands</li>
+                    <li>Workout engine with three paths producing one workout object - manual builder, AI generation from natural-language goals, and coach-assigned programs - with a runtime that plays each session type as prescribed (for-time, circuit, AMRAP, intervals, timed rotations, to-failure, power-quality)</li>
+                    <li>AI workout generation runs server-side in a Supabase Edge Function: the model only sees valid exercise slugs from an app-managed library (so it cannot invent exercises), with output constrained by training methodology, division-specific loads and race-pace goals</li>
+                    <li>Fidelity process: transcribed official HYROX training PDFs into the database against a written capability catalog and rubric, with per-plan fidelity reports measuring how many sessions map to existing formats and flagging modeling gaps before ingesting</li>
+                    <li>Session logger designed around a 3-tap rule, with station splits, auto-detected PBs, and auto-posting to circles; plus coach tooling (classes, rosters, dated assignments, athlete records) and community circles, feeds, leaderboards and chat</li>
+                    <li>Monetization and ops: RevenueCat subscriptions with a webhook Edge Function, push notification functions, account-deletion flow, moderation (block / report), and a Jest test suite with E2E flows</li>
+                </ul>
+                <div class="outcome">Outcome: Shipped to the Apple App Store - a multi-role iOS product with an AI coaching layer, built solo on a Supabase-only architecture using Claude Code workflows.</div>
+            </div>
+            <div class="item">
+                <div class="item-header">
                     <div class="item-title">Groupfound - AI-Matched Networking App for Ambitious People (iOS)</div>
                 </div>
                 <div class="item-subtitle"><a href="https://groupfound.com/" target="_blank">groupfound.com</a> (iOS app in pre-launch; App Store release in progress)</div>
@@ -396,22 +412,6 @@
                     <li>Admin dashboards for feed health and AI cost monitoring, including per-user daily caps on Mirror usage to keep AI spend predictable</li>
                 </ul>
                 <div class="outcome">Outcome: A production-quality iOS app, built solo with Claude Code workflows on a Supabase-only architecture, now in TestFlight and approaching its App Store launch.</div>
-            </div>
-            <div class="item">
-                <div class="item-header">
-                    <div class="item-title">Roxcircle - HYROX Training &amp; Community App (iOS)</div>
-                </div>
-                <div class="item-subtitle">Owned product - training companion and community for HYROX athletes, coaches, gyms and brands</div>
-                <div class="tech-stack">Tech Stack: React Native, Expo, TypeScript, Supabase (Postgres + Auth + Storage + Edge Functions + RLS), OpenAI GPT-4.1, RevenueCat, TanStack Query, Zustand, EAS</div>
-                <ul>
-                    <li>Designed and built the full product solo: a four-role platform (athlete, coach, gym, brand) in one codebase, where role-gated tab structures and permissions are driven by a single profile model plus an admin approval flow for coaches, gyms and brands</li>
-                    <li>Workout engine with three paths producing one workout object - manual builder, AI generation from natural-language goals, and coach-assigned programs - with a runtime that plays each session type as prescribed (for-time, circuit, AMRAP, intervals, timed rotations, to-failure, power-quality)</li>
-                    <li>AI workout generation runs server-side in a Supabase Edge Function: the model only sees valid exercise slugs from an app-managed library (so it cannot invent exercises), with output constrained by training methodology, division-specific loads and race-pace goals</li>
-                    <li>Fidelity process: transcribed official HYROX training PDFs into the database against a written capability catalog and rubric, with per-plan fidelity reports measuring how many sessions map to existing formats and flagging modeling gaps before ingesting</li>
-                    <li>Session logger designed around a 3-tap rule, with station splits, auto-detected PBs, and auto-posting to circles; plus coach tooling (classes, rosters, dated assignments, athlete records) and community circles, feeds, leaderboards and chat</li>
-                    <li>Monetization and ops: RevenueCat subscriptions with a webhook Edge Function, push notification functions, account-deletion flow, moderation (block / report), and a Jest test suite with E2E flows</li>
-                </ul>
-                <div class="outcome">Outcome: A production-oriented, multi-role iOS product with an AI coaching layer, built solo on a Supabase-only architecture using Claude Code workflows.</div>
             </div>
             <div class="item">
                 <div class="item-header">
@@ -548,7 +548,7 @@
                 </div>
                 <div class="item-subtitle">Groupfound &amp; Retainly (contract) + freelance clients | Remote</div>
                 <ul>
-                    <li>Built and own two iOS apps solo on React Native and Supabase: Groupfound (AI-matched networking with a Claude-powered profile-building assistant and explainable matchmaking) and Roxcircle (multi-role HYROX training platform with server-side AI workout generation)</li>
+                    <li>Built and own two iOS apps solo on React Native and Supabase: Roxcircle (multi-role HYROX training platform with server-side AI workout generation, <a href="https://apps.apple.com/us/app/roxcircle/id6831028973" target="_blank">live on the App Store</a>) and Groupfound (AI-matched networking with a Claude-powered profile-building assistant and explainable matchmaking)</li>
                     <li>Delivered client systems end to end: a multi-tenant AI cold-email lead engine and two OAuth 2.1-secured MCP connectors that make third-party tools usable from Claude</li>
                     <li>Shipped AI-powered web products on Next.js and Supabase: Shooters Network (tiered SaaS toolkit with lead finder, AI outreach DMs, a RAG-based mentor chatbot and a pricing tool) and OnlineMihna (job marketplace with AI-generated CVs) - details in Recent Projects</li>
                     <li>Partner directly with clients to scope the problem, design the architecture and data model, and ship to production using spec-first Claude Code workflows, QA gates, and security by default (RLS, PKCE, encrypted secrets)</li>
