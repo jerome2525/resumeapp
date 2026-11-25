@@ -384,6 +384,7 @@
                     <li><strong>Spec first:</strong> every build starts as a written spec and architecture in Markdown (data model, edge cases, failure modes) before any agent writes code; project conventions live in CLAUDE.md so output stays consistent.</li>
                     <li><strong>Review what AI writes:</strong> I read the diffs, challenge schema, auth and error-handling choices, and require tests and a QA gate before anything ships - e.g. the Retainly audit generator rejects off-brand output instead of sending it.</li>
                     <li><strong>Reliability over demos:</strong> I debug from logs and root causes (such as the Apify 402 burst that silently dropped most leads), then add retries, backoff and self-healing sweepers so failures don't repeat.</li>
+                    <li><strong>Cost-aware by design:</strong> cheaper models for background work, prompt caching, hard output and usage caps, and dashboards so AI spend stays predictable as users grow.</li>
                     <li><strong>Security by default:</strong> RLS tenant isolation, PKCE, signed short-lived tokens, encrypted secrets, rate limiting and audit logs.</li>
                 </ul>
                 <p><em>Note: client source code is confidential and not published. Architecture walkthroughs, live demos and references are available on request.</em></p>
@@ -423,7 +424,8 @@
                     <li>Decision and trade-off: direct-to-Supabase with no custom backend, so security rests on RLS in every table and on careful review of every migration and RPC; 223 version-controlled SQL migrations keep the schema reviewable</li>
                     <li>Security audit: closed 13 findings, including revoking client SELECT on profile latitude/longitude and replacing it with owner-only SECURITY DEFINER RPCs, since a single protected column in a select made PostgREST reject the entire row</li>
                     <li>Hard problems solved: an ON CONFLICT bug rolling back comment inserts (fixed with the partial-unique-index form), duplicate post-view errors, and a require cycle between post components</li>
-                    <li>Server-side automation: 24 Supabase Edge Functions plus Postgres triggers and pg_cron for push notifications, AI-generated intro copy, circle suggestions, geocoding and Mirror nudges; admin dashboards and per-user daily caps keep AI spend predictable</li>
+                    <li>Server-side automation: 24 Supabase Edge Functions plus Postgres triggers and pg_cron for push notifications, AI-generated intro copy, circle suggestions, geocoding and Mirror nudges</li>
+                    <li>AI cost control: Sonnet for chat and the cheaper Haiku for background summarization, prompt caching on the system and profile context, capped output tokens, a per-user daily cap, and token-usage tracking with an admin dashboard that alerts when 30% of active users hit the cap</li>
                     <li>Release engineering: Sign in with Apple, Google OAuth and email auth (PKCE), Sentry crash reporting, EAS builds with a TestFlight process, 54 test files and E2E flows</li>
                 </ul>
                 <div class="outcome">Outcome: A production-quality iOS app, built solo with Claude Code workflows on a Supabase-only architecture, now in TestFlight and approaching its App Store launch.</div>
@@ -500,7 +502,7 @@
             <h2>Skills</h2>
             <div class="skills-category">
                 <div class="skills-category-title">AI-Native Development (Primary Workflow):</div>
-                <div class="skills-list">Claude Code, MCP servers (Figma, Supabase, custom), Skills, slash commands, subagents and hooks, CLAUDE.md context engineering, spec-driven development, Claude API, OpenAI API, RAG, prompt engineering, tool calling, agent orchestration</div>
+                <div class="skills-list">Claude Code, MCP servers (Figma, Supabase, custom), Skills, slash commands, subagents and hooks, CLAUDE.md context engineering, spec-driven development, Claude API, OpenAI API, RAG, prompt engineering, tool calling, agent orchestration, AI cost control (model tiering, prompt caching, token caps, usage tracking)</div>
             </div>
             <div class="skills-category">
                 <div class="skills-category-title">Mobile:</div>
